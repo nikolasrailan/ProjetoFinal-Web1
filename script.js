@@ -20,12 +20,13 @@ getUsers();
 
 function criaCards(usuarios){
   const container = document.querySelector('.container-cards')
-  console.log(usuarios);
+  //console.log(usuarios);
 
   usuarios.forEach(element => {
 
     container.innerHTML += 
     `<div class="card">
+      <img src="./img/icone.avif"/>
       <h1>${element.name}</h1>
       <p>${element.email}</p>
       <button class="remover">Remover</button>
@@ -62,7 +63,7 @@ async function deletarCards(id) {
 function actionRemover(params) {
   const btnRemover = document.querySelectorAll('.remover')
 
-  console.log(btnRemover);
+  //console.log(btnRemover);
 
   btnRemover.forEach((botao, index) => {
     botao.addEventListener('click', ()=>{excluirCard(index)});
@@ -98,3 +99,21 @@ async function novoUsuario(novoUsuario){
     console.log(error);
   }
 }
+
+let formulario = document.querySelector("form");
+
+formulario.onsubmit = (event) => {
+  event.preventDefault();
+
+  let inputNome = document.querySelector('input[name^="nome"]');
+  let nome = inputNome.value;
+
+  let inputEmail = document.querySelector('input[name^="email"]');
+  let email = inputEmail.value;
+
+  const user = {name: nome, email: email};
+
+  novoUsuario(user);
+}
+
+//console.log(formulario);
