@@ -31,7 +31,8 @@ ul a {
   padding: 20px;
 }
 
-.container-cards {
+.container-cards,
+.sec-form {
   margin: 50px auto;
   width: 80%;
   background: #fff;
@@ -57,4 +58,19 @@ ul a {
 
 .card img {
   z-index: 0;
+}
+
+.sec-form input {
+  padding: 10px;
+  width: 30rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form button {
+  height: 1.8rem;
 }

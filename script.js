@@ -1,15 +1,14 @@
 let usuarios;
 async function getUsers(){
   try {
-    const res = await fetch(`https://randomuser.me/api/?results=10`);
+    const res = await fetch(`http://localhost:3000/usuarios`);
     const data = await res.json();
 
     if(!res.ok){
-      console.log(data.description);
+      console.log(data);
       return;
     }
-
-    usuarios = data.results;
+    usuarios = data;
     criaCards(usuarios);
 
   } catch (error) {
@@ -27,9 +26,7 @@ function criaCards(usuarios){
 
     container.innerHTML += 
     `<div class="card">
-      <img src="${element.picture.large
-      }" alt="">
-      <h1>${element.name.first} ${element.name.last}</h1>
+      <h1>${element.name}</h1>
       <p>${element.email}</p>
       <button class="remover">Remover</button>
     </div>`;
@@ -38,16 +35,66 @@ function criaCards(usuarios){
   actionRemover();
 }
 
+async function deletarCards(id) {
+  try {
+    const res = await fetch(
+      `http://localhost:3000/usuarios/${id}`,
+      {
+        method: "DELETE",
+      },
+    );
+
+    const data = await res.json();
+
+    if(!res.ok){
+      console.log(data);
+      return;
+    }
+
+    console.log(data);
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 function actionRemover(params) {
   const btnRemover = document.querySelectorAll('.remover')
 
   console.log(btnRemover);
 
-  btnRemover.forEach(botao => {
-    botao.addEventListener('click', excluirCard);
+  btnRemover.forEach((botao, index) => {
+    botao.addEventListener('click', ()=>{excluirCard(index)});
   });
 }
 
-function excluirCard(){
-  
+function excluirCard(index){
+  console.log(index);
+  deletarCards(index)
+}
+
+async function novoUsuario(novoUsuario){
+  try {
+    const res = await fetch('http://localhost:3000/usuarios',
+      {method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(novoUsuario),
+      },
+    );
+
+    const data = await res.json();
+
+    if(!res.ok){
+      console.log(data);
+      return;
+    }
+
+    console.log(data);
+
+  } catch (error) {
+    console.log(error);
+  }
 }
