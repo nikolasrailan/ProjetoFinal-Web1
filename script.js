@@ -23,6 +23,7 @@ function criaCards(usuarios){
   //console.log(usuarios);
 
   usuarios.forEach(element => {
+    console.log(element.id);
 
     container.innerHTML += 
     `<div class="card">
@@ -49,12 +50,13 @@ async function deletarCards(id) {
 
     if(!res.ok){
       console.log(data);
+
       return;
     }
 
     console.log(data);
-
   } catch (error) {
+
     console.log(error);
   }
 }
@@ -64,6 +66,8 @@ function actionRemover(params) {
   const btnRemover = document.querySelectorAll('.remover')
 
   //console.log(btnRemover);
+
+
 
   btnRemover.forEach((botao, index) => {
     botao.addEventListener('click', ()=>{excluirCard(index)});
